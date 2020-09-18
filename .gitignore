@@ -1,0 +1,16 @@
+# Optional npm cache directory
+.npm
+
+# Dependency directories
+node_modules/
+
+# WebdriverIO Specific Files
+errorShots/
+allure-report/
+allure-results/
+debug.log
+junit/
+sc.log/
+
+build/
+package-lock.json

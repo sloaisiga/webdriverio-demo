@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": false,
+    "outDir": "build/",
+    "types": ["node", "@wdio/sync", "@wdio/mocha-framework"],
+    "sourceMap": true
+  },
+  "exclude": ["../node_modules", "node_modules", "custom"],
+  "compileOnSave": false,
+  "include": ["./test/**/*.ts"]
+}
