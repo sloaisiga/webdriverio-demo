@@ -1,25 +1,39 @@
-const Page = require('./page');
+import Page from "./page";
+import * as _ from "lodash";
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () { return $('#username') }
-    get inputPassword () { return $('#password') }
-    get btnSubmit () { return $('button[type="submit"]') }
+  get userNameInput(): WebdriverIO.Element {
+    return $("#user-name");
+  }
+  get passwordInput(): WebdriverIO.Element {
+    return $("#password");
+  }
+  get userName(): WebdriverIO.ElementArray {
+    return $$("#login_credentials");
+  }
+  get password(): WebdriverIO.ElementArray {
+    return $$(".login_password");
+  }
+  get loginButton(): WebdriverIO.Element {
+    return $("#login-button");
+  }
+  get errorMessage(): WebdriverIO.Element {
+    return $('h3[data-test="error"]');
+  }
 
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    login (username, password) {
-        this.inputUsername.setValue(username);
-        this.inputPassword.setValue(password);
-        this.btnSubmit.click(); 
-    }
+  submit() {
+    this.loginButton.click();
+  }
+
+  getCredentials(regex: any) {
+    let userNameList: string[];
+    let passwordList: string[];
+    userNameList = this.userName.map((e) => e.getText());
+    passwordList = this.password.map((e) => e.getText());
+    userNameList = _.tail(userNameList[0].split(regex));
+    let password: string = _.tail(passwordList[0].split(regex))[0];
+    return { userNameList, password };
+  }
 }
 
-module.exports = new LoginPage();
+export default new LoginPage();
