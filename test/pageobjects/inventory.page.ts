@@ -1,5 +1,4 @@
 import Page from "./page";
-import * as _ from "lodash";
 
 class InventoryPage extends Page {
   get menuButton(): WebdriverIO.Element {
@@ -17,14 +16,24 @@ class InventoryPage extends Page {
   get shoppingCardCounter(): WebdriverIO.Element {
     return $(".shopping_cart_badge")
   }
+  get itemPrice(): WebdriverIO.ElementArray {
+    return $$("#inventory_container .inventory_item_price")
+  }
    logout() {
     this.menuButton.click();
     this.logoutButton.click();
   }
-  addAllItems() {
+  addAllItems(): number {
     this.addItemButton.map(e => e.click());
     const itemCardCounter: number = parseInt(this.shoppingCardCounter.getText());
     return itemCardCounter;
+  }
+  getItemPrices(): number {
+    let priceList: any[] = this.itemPrice.map((e) => e.getText());
+    priceList = priceList.map((e) => parseFloat(e.replace("$", ""))
+    );
+    const priceTotal = (accumulator, currentValue) => accumulator + currentValue;
+    return priceList.reduce(priceTotal);
   }
 }
 
