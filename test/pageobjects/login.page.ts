@@ -34,6 +34,19 @@ class LoginPage extends Page {
     let password: string = _.tail(passwordList[0].split(regex))[0];
     return { userNameList, password };
   }
+
+  logon() {
+    let regex: any = /\r?\n|\r/g;
+    let { userNameList, password }: { userNameList: string[]; password: string; } = this.getCredentials(regex);
+  
+    const standardUser: string = userNameList[0];
+    this.userNameInput.setValue(standardUser);
+    this.passwordInput.setValue(password);
+  
+    this.submit();
+    browser.pause(300);
+  }
+  
 }
 
 export default new LoginPage();

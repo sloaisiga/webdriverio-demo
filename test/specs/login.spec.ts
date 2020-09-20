@@ -1,9 +1,7 @@
 import login from "../pageobjects/login.page";
 import inventory from "../pageobjects/inventory.page";
 
-describe("My Form", () => {
-  let regex: any = /\r?\n|\r/g;
-
+describe("Login Form", () => {
   before(() => {
     login.open("/");
     browser.pause(300)
@@ -17,19 +15,11 @@ describe("My Form", () => {
   });
 
   it("should login and logout successfully as standard user", () => {
-    let { userNameList, password }: { userNameList: string[]; password: string; } = login.getCredentials(regex);
-    
-    const standardUser: string = userNameList[0]
-    login.userNameInput.setValue(standardUser) 
-    login.passwordInput.setValue(password)
-    
-    login.submit()
-    browser.pause(300)
+    login.logon();
     expect(browser.getUrl()).toEqual("https://www.saucedemo.com/inventory.html")
     
     inventory.logout();
     expect(browser.getUrl()).toEqual("https://www.saucedemo.com/index.html");
   });
 });
-
 
