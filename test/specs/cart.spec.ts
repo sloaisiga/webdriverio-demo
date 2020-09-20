@@ -30,5 +30,4 @@ describe("Cart Form", () => {
     browser.pause(500);
     expect(browser.getUrl()).toEqual("https://www.saucedemo.com/checkout-step-one.html")
   });
-
 });
