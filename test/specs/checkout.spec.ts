@@ -4,11 +4,13 @@ import cart from "../pageobjects/cart.page";
 import checkout from "../pageobjects/checkout.page";
 
 describe("Checkout Form", () => {
+  let priceTotal: number; 
   before(() => {
     login.open("/");
     login.logon();
     browser.pause(300);
     inventory.addAllItems();
+    priceTotal = inventory.getItemPrices();
     inventory.shoppingCardCounter.click();
     cart.cartCheckoutButton.click();
   });
@@ -29,11 +31,35 @@ describe("Checkout Form", () => {
     });
   });
 
-  it("should add all items to the card", () => {
+  it("should add checkout user information", () => {
     checkout.firstName.setValue("Louis");
     checkout.lastName.setValue("Smith");
     checkout.zipCode.setValue("33165");
     checkout.checkoutContinueButton.click()
+    browser.pause(200)
     expect(browser.getUrl()).toEqual("https://www.saucedemo.com/checkout-step-two.html")
   });
+
+  it("should validate checkout information", () => {
+   const summary: string = checkout.summary.getText()
+   const isPriceTotal: boolean = summary.includes(priceTotal.toString())
+   expect(isPriceTotal).toBeTruthy;
+
+   checkout.checkoutSecondPartFooter.forEach(e=> {
+    const isDisplayed: boolean = e.isDisplayed()
+    expect(isDisplayed).toBeTruthy;})
+
+    checkout.submitCartButton.click()
+  });
+
+  it("should complete order and display message", () => {
+    expect(browser.getUrl()).toEqual("https://www.saucedemo.com/checkout-complete.html")
+    const header: string = checkout.completeCheckoutHeader.getText()
+    const completeText: string = checkout.completeCheckoutText.getText()
+    const ponyExpressImg: boolean = checkout.completeCheckoutImage.isDisplayed()
+    
+    expect(header).toEqual("THANK YOU FOR YOUR ORDER")
+    expect(completeText).toEqual("Your order has been dispatched, and will arrive just as fast as the pony can get there!")
+    expect(ponyExpressImg).toBeTruthy
+  })
 });
