@@ -6,7 +6,6 @@ import {Chance} from "chance"
 const chance = new Chance();
 
 describe("Checkout Form", () => {
- 
   let priceTotal: number; 
   before(() => {
     login.open("/");
@@ -47,7 +46,6 @@ describe("Checkout Form", () => {
    const summary: string = checkout.summary.getText()
    const isPriceTotal: boolean = summary.includes(priceTotal.toString())
    expect(isPriceTotal).toBeTruthy;
-
    checkout.checkoutSecondPartFooter.forEach(e=> {
     const isDisplayed: boolean = e.isDisplayed()
     expect(isDisplayed).toBeTruthy;})

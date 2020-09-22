@@ -1,6 +1,13 @@
 import { Config } from "webdriverio";
+interface CustomConfig extends Config {
+  mochaOpts: {
+    ui: string;
+    timeout: number;
+  }
+}
 
-const config: Config = {
+
+const config: CustomConfig  = {
   runner: "local",
   specs: ["./build/specs/**/*.spec.js"],
   exclude: [],
@@ -20,11 +27,15 @@ const config: Config = {
   connectionRetryCount: 3,
   services: ["chromedriver"],
   framework: "mocha",
-  reporters: ["spec"],
-
-  // before: function(capabilities, specs) {
-  //   global.chance = new Chance();
-  // }
+  mochaOpts: {
+    ui: 'bdd',
+    timeout: 9999999
+  },
+  reporters: [['allure', {
+    outputDir: 'allure-results',
+    disableWebdriverStepsReporting: true,
+    disableWebdriverScreenshotsReporting: true,
+}]],
 };
 
 export { config };

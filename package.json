@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@wdio/allure-reporter": "^6.5.2",
     "@wdio/cli": "^6.4.6",
     "@wdio/local-runner": "^6.4.6",
     "@wdio/mocha-framework": "^6.4.0",
