@@ -2,8 +2,11 @@ import inventory from "../pageobjects/inventory.page";
 import login from "../pageobjects/login.page";
 import cart from "../pageobjects/cart.page";
 import checkout from "../pageobjects/checkout.page";
+import {Chance} from "chance"
+const chance = new Chance();
 
 describe("Checkout Form", () => {
+ 
   let priceTotal: number; 
   before(() => {
     login.open("/");
@@ -32,9 +35,9 @@ describe("Checkout Form", () => {
   });
 
   it("should add checkout user information", () => {
-    checkout.firstName.setValue("Louis");
-    checkout.lastName.setValue("Smith");
-    checkout.zipCode.setValue("33165");
+    checkout.firstName.setValue(chance.first());
+    checkout.lastName.setValue(chance.last());
+    checkout.zipCode.setValue(chance.zip());
     checkout.checkoutContinueButton.click()
     browser.pause(200)
     expect(browser.getUrl()).toEqual("https://www.saucedemo.com/checkout-step-two.html")

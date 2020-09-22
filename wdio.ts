@@ -21,6 +21,10 @@ const config: Config = {
   services: ["chromedriver"],
   framework: "mocha",
   reporters: ["spec"],
+
+  // before: function(capabilities, specs) {
+  //   global.chance = new Chance();
+  // }
 };
 
 export { config };
