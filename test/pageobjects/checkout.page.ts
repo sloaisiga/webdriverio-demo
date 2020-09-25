@@ -1,4 +1,5 @@
 import Page from "./page";
+import { CONNREFUSED } from "dns";
 
 class CheckoutPage extends Page {
   cartCheckoutButton: any;
@@ -10,6 +11,9 @@ class CheckoutPage extends Page {
   }
   get zipCode(): WebdriverIO.Element {
     return $("#postal-code");
+  }
+  get checkoutOneCancelButton(): WebdriverIO.Element {
+    return $(".checkout_buttons a")
   }
   get checkoutCancelButton(): WebdriverIO.Element {
     return $(".cart_footer a")
@@ -40,6 +44,15 @@ class CheckoutPage extends Page {
   }
   get completeCheckoutImage(): WebdriverIO.Element {
     return $("#checkout_complete_container img")
+  }
+
+  public validateButtonsDisplayed(elementList: WebdriverIO.Element[]): boolean {
+    const isDisplayed = (element) => element === true;
+    const displayedElementsResult: boolean = elementList.map((e) => {
+      return e.isDisplayed();
+    }).every(isDisplayed);
+  
+    return displayedElementsResult;
   }
 }
 

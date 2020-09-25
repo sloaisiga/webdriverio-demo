@@ -15,7 +15,7 @@
     "wdio-chromedriver-service": "^6.0.4"
   },
   "scripts": {
-    "clean": "shx rm -rf ./allure-results ./build",
+    "clean": "shx rm -rf ./allure-report ./allure-results ./build",
     "pretest": "npm run clean && tsc",
     "test": "npm run pretest && wdio ./wdio.conf.js"
   },

@@ -10,7 +10,7 @@ describe("Inventory Form", () => {
 
   it("should validate item list", () => {
     const itemListLenght: number = inventory.inventoryItems.length;
-    console.log("itemListLenght ", itemListLenght);
+    
     expect(itemListLenght).toEqual(6);
   });
 
