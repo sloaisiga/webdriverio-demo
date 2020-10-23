@@ -1,34 +1,53 @@
-import { Config } from 'webdriverio';
+import { Config } from "webdriverio";
 
-console.log("lol XD");
-
-const config: Config = {
-    runner: 'local',
-    specs: [
-        './build/specs/**/*.spec.js'
-    ],
-    exclude: [
-    // 'path/to/excluded/files'
-    ],
-    maxInstances: 10,
-    capabilities: [{
-            maxInstances: 5,
-            browserName: 'chrome',
-            acceptInsecureCerts: true
-        }],
-    logLevel: 'info',
-    bail: 0,
-    baseUrl: 'https://demoqa.com',
-    waitforTimeout: 10000,
-    connectionRetryTimeout: 120000,
-    connectionRetryCount: 3,
-    services: ['chromedriver'],
-    framework: 'mocha',
-    reporters: ['spec'],
-    // mochaOpts: {
-    //     ui: 'bdd',
-    //     timeout: 60000
-    // },
+interface CustomConfig extends Config {
+  params: {
+  };
+  mochaOpts: {
+    ui: string;
+    timeout: number;
+  };
 }
 
-export { config }
+const config: CustomConfig = {
+  runner: "local",
+  specs: ["./build/specs/**/*.spec.js"],
+  exclude: [],
+  maxInstances: 10,
+  capabilities: [
+    {
+      maxInstances: 1,
+      browserName: "chrome",
+      acceptInsecureCerts: true,
+    },
+  ],
+  logLevel: "info",
+  bail: 0,
+  baseUrl: "https://www.saucedemo.com",
+  waitforTimeout: 10000,
+  connectionRetryTimeout: 120000,
+  connectionRetryCount: 3,
+  services: ["chromedriver"],
+  framework: "mocha",
+  mochaOpts: {
+    ui: "bdd",
+    timeout: 9999999,
+  },
+  reporters: [
+    [
+      "allure",
+      {
+        outputDir: "allure-results",
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+      },
+    ],
+  ],
+  params: {
+    scenarioContext: {
+      currentUser: {}
+    }
+  }
+};
+
+export { config };
