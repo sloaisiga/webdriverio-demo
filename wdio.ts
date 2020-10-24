@@ -1,8 +1,6 @@
 import { Config } from "webdriverio";
 
 interface CustomConfig extends Config {
-  params: {
-  };
   mochaOpts: {
     ui: string;
     timeout: number;
@@ -40,14 +38,10 @@ const config: CustomConfig = {
         outputDir: "allure-results",
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: true,
-      },
+      }
     ],
-  ],
-  params: {
-    scenarioContext: {
-      currentUser: {}
-    }
-  }
+    "spec"
+  ]
 };
 
 export { config };

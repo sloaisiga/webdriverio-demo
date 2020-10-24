@@ -1,12 +1,17 @@
-import register from "../pageobjects/register.page";
+import actors from '../actors/actorData'
+import Actor from '../actors/actor'
+import interrogations from "../actions/interrogations"
+
 
 describe('My Form', () => {
     before(() => {
-      register.open("/register")
+      browser.url('/')
     })
 
-    it('should validate form elements', () => {
-        expect(browser.getUrl()).toEqual('https://demoqa.com/register')
+    it('standard_user user with customer role authenticates into SAUCEDEMO', () => {
+      const actor = new Actor(actors[0].username)
+      actor.login()
+      expect(interrogations.checkInventoryUrl()).toContain('inventory');
     })
 });
 

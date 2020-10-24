@@ -1,25 +1,24 @@
-const Page = require('./page');
+import Page from "./page";
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () { return $('#username') }
-    get inputPassword () { return $('#password') }
-    get btnSubmit () { return $('button[type="submit"]') }
-
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    login (username, password) {
-        this.inputUsername.setValue(username);
-        this.inputPassword.setValue(password);
-        this.btnSubmit.click(); 
-    }
+  get userNameInput(): WebdriverIO.Element {
+    return $("#user-name");
+  }
+  get passwordInput(): WebdriverIO.Element {
+    return $("#password");
+  }
+  get userName(): WebdriverIO.ElementArray {
+    return $$("#login_credentials");
+  }
+  get password(): WebdriverIO.ElementArray {
+    return $$(".login_password");
+  }
+  get loginButton(): WebdriverIO.Element {
+    return $("#login-button");
+  }
+  get errorMessage(): WebdriverIO.Element {
+    return $('h3[data-test="error"]');
+  }
 }
 
-module.exports = new LoginPage();
+export default new LoginPage();
