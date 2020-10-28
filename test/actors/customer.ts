@@ -6,7 +6,7 @@ export default class Admin extends Actor {
         super(username);
     }
 
-    navigateToPostsPageViaSideNav() {
-        Interactions.navigateToPostsPageViaSideNav();
-    }
+    // navigateToPostsPageViaSideNav() {
+    //     Interactions.navigateToPostsPageViaSideNav();
+    // }
 }

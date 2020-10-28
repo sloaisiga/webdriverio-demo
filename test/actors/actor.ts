@@ -21,4 +21,12 @@ export default class Actor {
     login() {
         Interactions.logIntoAccount(this.username, this.password);
     }
+
+    logOut() {
+        Interactions.logOut()
+    }
+
+    addAllItems() {
+        return Interactions.addAllItems()
+    }
 }
