@@ -13,6 +13,9 @@ class CartPage extends Page {
   get shoppingCardCounter(): WebdriverIO.Element {
     return $(".shopping_cart_badge")
   }
+  get checkoutSecondPartFooter(): WebdriverIO.ElementArray {
+    return $$(".cart_footer a")
+  }
 }
 
 export default new CartPage();

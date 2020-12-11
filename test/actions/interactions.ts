@@ -1,6 +1,9 @@
 import login from "../pageobjects/login.page"
 import inventory from "../pageobjects/inventory.page"
 import cart from "../pageobjects/cart.page"
+import checkout from "../pageobjects/checkout.page"
+import { Chance } from "chance"
+const chance = new Chance()
 
 /**
  * Possible interactions with the applications.
@@ -33,6 +36,23 @@ class Interactions {
 
     goToCart(): void {
         return cart.shoppingCardCounter.click()
+    }
+
+    checkout(): void {
+        cart.cartCheckoutButton.click()
+    }
+
+    fillCheckoutForm(): void {
+        checkout.firstName.waitForDisplayed({timeout: 5000, timeoutMsg: `First name input is not displayed after 5000 milliseconds`})
+        checkout.firstName.setValue(chance.first())
+        checkout.lastName.setValue(chance.last())
+        checkout.zipCode.setValue(chance.zip())
+        checkout.checkoutContinueButton.click()
+        browser.pause(200)
+    }
+    
+    submitCart(): void {
+        checkout.submitCartButton.click()
     }
 }
 

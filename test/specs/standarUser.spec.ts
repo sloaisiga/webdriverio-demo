@@ -1,14 +1,11 @@
-import actors from '../actors/actorData'
+import data from '../actors/actorData'
 import Actor from '../actors/actor'
-import interrogations from "../actions/interrogations"
-import cart from "../pageobjects/cart.page"
-import checkout from "../pageobjects/checkout.page"
-import { Chance } from "chance"
-import inventory from '../pageobjects/inventory.page'
-const chance = new Chance()
+import interrogations from '../actions/interrogations'
+import cart from '../pageobjects/cart.page'
+import checkout from '../pageobjects/checkout.page'
 
 describe('My Form', () => {
-    let actor = new Actor(actors[0].username)
+    let actor = new Actor(data[0].username)
     
     before(() => {
       browser.url('/')
@@ -21,23 +18,48 @@ describe('My Form', () => {
       expect(interrogations.checkUrlPath()).toContain('inventory')
     })
 
-    it("standard user should add items to the cart", () => {
-      // Actions
+    it('standard user should add items to the cart', () => {
+      // Action
       actor.addAllItems()
       // Question
       expect(interrogations.checkItemsQuantity()).toEqual(6)
     })
 
-    it("standard user should have access to verify the cart", () => {
-      const areButtonsDisplayed: boolean[] = cart.cartButtons.map(e=>e.isDisplayed())
-      const result: boolean = areButtonsDisplayed.every(e=> e===true)
-      expect(result).toBeTruthy
+    it('standard user should have access to verify the cart', () => { 
+      // Question
+      expect(interrogations.checkButtonsVisibility(cart.cartButtons)).toBeTruthy
 
-      actor.verifyCartItems()
+      // Action
+      actor.goToCart()
       browser.pause(500)
 
-      expect(interrogations.checkExistenceOfCartItem()).toEqual(6)
+      // Question
+      expect(interrogations.checkQtyOfCartItem()).toEqual(6)
     })
+
+     it('standard user should fill checkout form', () => {
+      // Action
+      actor.checkout()
+      actor.fillCheckoutForm()
+     
+      // Question
+      expect(interrogations.checkUrlPath()).toContain('checkout-step-two')
+    });
+
+
+    it('standard user should preview checkout information provided', () => {
+      // Question
+      expect(interrogations.checkPriceInSummary()).toBeTruthy()
+      
+       // Question
+       expect(interrogations.checkButtonsVisibility(checkout.checkoutSecondPartFooter)).toBeTruthy
+  
+      // Action
+      actor.submitCart()
+
+      // Question
+      expect(interrogations.checkUrlPath()).toContain('ckout-complete');
+    });
 })
 
 
