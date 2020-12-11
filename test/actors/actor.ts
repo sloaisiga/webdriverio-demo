@@ -23,7 +23,7 @@ export default class Actor {
     }
 
     logOut() {
-        Interactions.logOut()
+        return Interactions.logOut()
     }
 
     addAllItems() {

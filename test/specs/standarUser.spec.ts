@@ -60,6 +60,20 @@ describe('My Form', () => {
       // Question
       expect(interrogations.checkUrlPath()).toContain('ckout-complete');
     });
+
+     it("standar user should complete checkout", () => {
+      // Question
+      expect(interrogations.checkText(checkout.completeCheckoutHeader)).toEqual("THANK YOU FOR YOUR ORDER");
+      expect(interrogations.checkText(checkout.completeCheckoutText)).toEqual(
+        "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+      );
+      expect(interrogations.checkText(checkout.completeCheckoutImage)).toBeTruthy;
+    });
+
+    it("standard user should logout", () => {
+      actor.logOut()
+      expect(interrogations.checkUrlPath()).toContain('index')
+    });
 })
 
 

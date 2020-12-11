@@ -26,22 +26,31 @@ class Interactions {
      */
     logOut() {
         inventory.menuButton.click()
+        browser.pause(3000)
         inventory.logoutButton.click()
         browser.pause(6000)
     }
-
+    /**
+     * Add all items to the cart
+     */
     addAllItems(): void {
         inventory.addItemButton.map(e => e.click())
     }
-
+    /**
+     * Redirect to cart page
+     */
     goToCart(): void {
         return cart.shoppingCardCounter.click()
     }
-
+    /**
+     * Confirm Checkout
+     */
     checkout(): void {
         cart.cartCheckoutButton.click()
     }
-
+    /**
+     * Fill checkout form with user data
+     */
     fillCheckoutForm(): void {
         checkout.firstName.waitForDisplayed({timeout: 5000, timeoutMsg: `First name input is not displayed after 5000 milliseconds`})
         checkout.firstName.setValue(chance.first())
@@ -50,7 +59,9 @@ class Interactions {
         checkout.checkoutContinueButton.click()
         browser.pause(200)
     }
-    
+    /**
+     * Confirm cart submission
+     */
     submitCart(): void {
         checkout.submitCartButton.click()
     }
