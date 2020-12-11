@@ -29,4 +29,8 @@ export default class Actor {
     addAllItems() {
         return Interactions.addAllItems()
     }
+
+    verifyCartItems() {
+        return Interactions.goToCart()
+    }
 }

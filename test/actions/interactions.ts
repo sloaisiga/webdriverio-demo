@@ -1,5 +1,6 @@
 import login from "../pageobjects/login.page"
 import inventory from "../pageobjects/inventory.page"
+import cart from "../pageobjects/cart.page"
 
 /**
  * Possible interactions with the applications.
@@ -26,11 +27,13 @@ class Interactions {
         browser.pause(6000)
     }
 
-    addAllItems(): number {
-        inventory.addItemButton.map(e => e.click());
-        const itemCardCounter: number = parseInt(inventory.shoppingCardCounter.getText());
-        return itemCardCounter;
+    addAllItems(): void {
+        inventory.addItemButton.map(e => e.click())
+    }
+
+    goToCart(): void {
+        return cart.shoppingCardCounter.click()
     }
 }
 
-export default new Interactions();
+export default new Interactions()
